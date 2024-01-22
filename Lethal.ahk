@@ -5,6 +5,17 @@
 
 SetWorkingDir "C:\Users\Monkey\Documents\AutoHotkey\LethalConfigs"
 
+PingContent := ""
+FlashContent := ""
+DisableContent := ""
+
+^s::{
+	RadarContent := FileRead("Radar.txt")
+	PingContent := "ping " StrReplace(RadarContent, "`n", "`nping ") ; add "ping " at the beginning of each line
+	FlashContent := "flash " StrReplace(RadarContent, "`n", "`nflash ")
+	DisableContent := FileRead("Disable.txt")
+}
+
 #HotIf WinActive("Lethal Company")
 ^q::{
 	Send("view monitor{Enter}")
@@ -27,35 +38,19 @@ SetWorkingDir "C:\Users\Monkey\Documents\AutoHotkey\LethalConfigs"
 	}
 }
 
-Ping := false
-Flash := false
-Disable := false
-Paused := true
-PingContent := ""
-FlashContent := ""
-
-#HotIf WinActive("Lethal Company")
-^z::{
-	global
-	Ping:= !Ping
-}
-
-#HotIf WinActive("Lethal Company")
-^x::{
-	global
-	Flash:= !Flash
-}
-
-#HotIf WinActive("Lethal Company")
-^f::{
-	global
-	Disable:= !Disable
-}
-
 #HotIf WinActive("Lethal Company")
 ^l::{
-	global
-	Paused:= !Paused
+	TypeContent(PingContent)
+}
+
+#HotIf WinActive("Lethal Company")
+^k::{
+	TypeContent(FlashContent)
+}
+
+#HotIf WinActive("Lethal Company")
+^j::{
+	TypeContent(DisableContent)
 }
 
 #HotIf WinActive("Lethal Company")
@@ -63,59 +58,6 @@ FlashContent := ""
 
 #HotIf WinActive("Lethal Company")
 ^o::Send ("flash " A_Clipboard)
-
-DisableContent := ""
-
-#HotIf WinActive("Lethal Company")
-Loop{
-	if (Paused) {
-		; Check and read files if the variables are set to true
-		PingOrFlash := false
-
-		if (Ping) {
-			;PingContent := FileRead("Ping.txt")
-			;PingContent := global PingContent
-			PingOrFlash := true
-			TypeContent(PingContent)
-		} else {
-			PingContent := ""
-		}
-
-		if (Flash) {
-			;FlashContent := FileRead("Flash.txt")
-			;FlashContent := global FlashContent
-			PingOrFlash := true
-			TypeContent(FlashContent)
-		} else {
-			FlashContent := ""
-		}
-
-		if (PingOrFlash) {
-			RadarContent := FileRead("Radar.txt")
-			PingContent := "ping " StrReplace(RadarContent, "`n", "`nping ") ; add "ping " at the beginning of each line
-			FlashContent := "flash " StrReplace(RadarContent, "`n", "`nflash ")
-		}
-
-		if (Disable) {
-			DisableContent := FileRead("Disable.txt")
-			TypeContent(DisableContent)
-		} else {
-			DisableContent := ""
-		}
-	}
-
-    Sleep 10 ; Sleep for 5 seconds before checking again
-}
-
-TypeContent(content) {
-    ; Type out the contents with delays
-    Loop Parse content
-    {
-        Send A_LoopField
-        Sleep 15 ; Delay between characters
-    }
-    Send "{Enter}"
-}
 
 #HotIf WinActive("Lethal Company")
 ^r::{
@@ -127,4 +69,14 @@ TypeContent(content) {
 		Sleep 25
 		CurrentCode := CurrentCode + 2
 	}
+}
+
+TypeContent(content) {
+    ; Type out the contents with delays
+    Loop Parse content
+    {
+        Send A_LoopField
+        Sleep 15 ; Delay between characters
+    }
+    Send "{Enter}"
 }
