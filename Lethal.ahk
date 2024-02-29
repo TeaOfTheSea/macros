@@ -37,6 +37,11 @@ $^s::{
 }
 
 #HotIf WinActive("Lethal Company")
+^f::{
+	Send("scan{Enter}")
+}
+
+#HotIf WinActive("Lethal Company")
 ^Backspace::{
 	Loop 10 {
 		Send("{Backspace}")
