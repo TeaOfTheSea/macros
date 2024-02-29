@@ -4,6 +4,7 @@
 * Ctrl + q: Types "view monitor" and then hits enter. This will pull up the monitor on the terminal quickly.
 * Ctrl + e: Types "switch" and then hits enter. Used for quickly switching the monitor as the terminal user.
 * Ctrl + t: Types "transmit " as a shortcut for the use of the signal translator.
+* Ctrl + f: Types "scan{Enter}" . Useful for https://www.youtube.com/watch?v=silFNmwjURo
 * Ctrl + Backspace: Hits the backspace key ten times.
 * Ctrl + p: Types the text "ping " than types the data currently copied to the clipboard. This allows you to copy a radar-booster's name and ping it quickly.
 * Ctrl + o: Types the text "flash " than types the data currently copied to the clipboard. This allows you to copy a radar-booster's name and flash it quickly.
